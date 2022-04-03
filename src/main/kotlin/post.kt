@@ -14,60 +14,60 @@ data class Post(
     var text: String,
     val replyOwnerId: Int,
     val replyPostId: Int,
-    val friendsOnly: Boolean = false,
-    val comments: Comments,
+    var friendsOnly: Boolean = false,
+    var comments: Comments,
     val copyright: Copyright,
-    val likes: Likes,
-    val reposts: Repost,
-    val views: Views,
-    val postType: String,
+    var likes: Likes,
+    var reposts: Repost,
+    var views: Views,
+    var postType: String,
     val signerId: Int,
-    val canPin: Boolean,
-    val canDelete: Boolean,
-    val canEdit: Boolean,
-    val isPinned: Boolean,
-    val markedAsAds: Boolean,
-    val isFavorite: Boolean,
-    val donut: Donut,
-    val postponedId: Int,
+    var canPin: Boolean,
+    var canDelete: Boolean,
+    var canEdit: Boolean,
+    var isPinned: Boolean,
+    var markedAsAds: Boolean,
+    var isFavorite: Boolean,
+    var donut: Donut,
+    var postponedId: Int,
 )
 
 data class Comments(
-    val count: Int,
-    val canPost: Boolean,
-    val groupsCanPost: Boolean,
-    val canClose: Boolean,
-    val canOpen: Boolean,
+    var count: Int,
+    var canPost: Boolean,
+    var groupsCanPost: Boolean,
+    var canClose: Boolean,
+    var canOpen: Boolean,
 )
 
 data class Copyright(
     val id: Int,
-    val link: String,
-    val name: String,
-    val type: String,
+    var link: String,
+    var name: String,
+    var type: String,
 )
 
 data class Likes(
-    val count: Int,
-    val userLikes: Boolean,
-    val canLike: Boolean,
-    val canPublish: Boolean,
+    var count: Int,
+    var userLikes: Boolean,
+    var canLike: Boolean,
+    var canPublish: Boolean,
 )
 
 data class Repost(
-    val count: Int,
-    val userReposted: Boolean
+    var count: Int,
+    var userReposted: Boolean
 )
 
 data class Views(
-    val count: Int,
+    var count: Int,
 )
 
 data class Donut(
-    val isDonut: Boolean,
-    val paidDuration: Int,
-    val canPublishFreeCopy: Boolean,
-    val editMode: String,
+    var isDonut: Boolean,
+    var paidDuration: Int,
+    var canPublishFreeCopy: Boolean,
+    var editMode: String,
 )
 
 object WallService {
