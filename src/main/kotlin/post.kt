@@ -12,16 +12,19 @@ data class Post(
     val created_by: Int,
     val date: Int,
     var text: String,
-    val replyOwnerId: Int,
-    val replyPostId: Int,
+    val replyOwnerId: Int?,
+    val replyPostId: Int?,
     var friendsOnly: Boolean = false,
     var comments: Comments,
-    val copyright: Copyright,
+    val copyright: Copyright?,
     var likes: Likes,
     var reposts: Repost,
     var views: Views,
     var postType: String,
-    val signerId: Int,
+    val postSource: PostSource?,
+    var geo: Geo?,
+    val signerId: Int?,
+    var copyHistory: ArrayList<Post>?,
     var canPin: Boolean,
     var canDelete: Boolean,
     var canEdit: Boolean,
@@ -29,7 +32,7 @@ data class Post(
     var markedAsAds: Boolean,
     var isFavorite: Boolean,
     var donut: Donut,
-    var postponedId: Int,
+    var postponedId: Int?,
 )
 
 data class Comments(
@@ -68,6 +71,34 @@ data class Donut(
     var paidDuration: Int,
     var canPublishFreeCopy: Boolean,
     var editMode: String,
+)
+
+data class PostSource(
+    val type: String,
+    val platform: String,
+    val data: String,
+    val url: String
+)
+
+data class Geo(
+    var type: String,
+    var coordinates: String,
+    var place: Place?
+)
+
+data class Place(
+    val id: Int,
+    var title: String,
+    var latitude: Int,
+    var longitude: Int,
+    var created: Int,
+    var icon: String,
+    var updated: Int,
+    var checkins: Int,
+    var type: Int,
+    var country: Int,
+    var city: Int,
+    var address: String,
 )
 
 object WallService {
