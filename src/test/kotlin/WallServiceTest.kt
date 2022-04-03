@@ -28,7 +28,8 @@ val post1 = Post(
     markedAsAds = true,
     isFavorite = false,
     donut = Donut(isDonut = false, paidDuration = 0, canPublishFreeCopy = true, editMode = "glkjl"),
-    postponedId = 1
+    postponedId = 1,
+    attachments = null
 )
 val post2 = Post(
     id = 1,
@@ -54,7 +55,8 @@ val post2 = Post(
     markedAsAds = true,
     isFavorite = false,
     donut = Donut(isDonut = false, paidDuration = 0, canPublishFreeCopy = true, editMode = "glkjl"),
-    postponedId = 1
+    postponedId = 1,
+    attachments = null
 )
 val post3 = Post(
     id = 888888,
@@ -80,7 +82,8 @@ val post3 = Post(
     markedAsAds = true,
     isFavorite = false,
     donut = Donut(isDonut = false, paidDuration = 0, canPublishFreeCopy = true, editMode = "glkjl"),
-    postponedId = 1
+    postponedId = 1,
+    attachments = null
 )
 
 class WallServiceTest {

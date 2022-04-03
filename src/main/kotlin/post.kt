@@ -21,6 +21,7 @@ data class Post(
     var reposts: Repost,
     var views: Views,
     var postType: String,
+    var attachments: ArrayList<Attachment>?,
     val signerId: Int,
     var canPin: Boolean,
     var canDelete: Boolean,
@@ -47,16 +48,23 @@ data class Copyright(
     var type: String,
 )
 
-data class Likes(
-    var count: Int,
-    var userLikes: Boolean,
-    var canLike: Boolean,
-    var canPublish: Boolean,
+open class Like(
+    open var count: Int,
+    open var userLikes: Boolean
 )
 
-data class Repost(
-    var count: Int,
-    var userReposted: Boolean
+data class Likes(
+    override var count: Int,
+    override var userLikes: Boolean,
+    var canLike: Boolean,
+    var canPublish: Boolean
+) : Like(
+    count, userLikes
+)
+
+open class Repost(
+    open var count: Int,
+    open var userReposted: Boolean
 )
 
 data class Views(
@@ -68,6 +76,202 @@ data class Donut(
     var paidDuration: Int,
     var canPublishFreeCopy: Boolean,
     var editMode: String,
+)
+
+sealed class Attachment(
+    val type: String
+)
+
+data class AudioAttachment(val audio: Audio) : Attachment(
+    "audio"
+)
+
+data class PhotoAttachment(val photo: ExtPhoto) : Attachment(
+    "photo"
+)
+
+data class VideoAttachment(var video: Video) : Attachment(
+    "video"
+)
+
+data class DocAttachment(var doc: Doc) : Attachment(
+    "doc"
+)
+
+data class LinkAttachment(var link: Link) : Attachment(
+    "link"
+)
+
+data class Audio(
+    val id: Int,
+    val ownerId: Int,
+    val artist: String?,
+    val title: String?,
+    val duration: Int,
+    val url: String,
+    val lyricsId: Int,
+    val albumId: Int,
+    val genreId: Int,
+    val noSearch: Boolean,
+    val isHq: Boolean,
+)
+
+open class Photo(
+    open val sizes: ArrayList<Size>,
+)
+
+data class ExtPhoto(
+    val id: Int,
+    val albumId: Int,
+    val ownerId: Int,
+    val userId: Int,
+    var text: String?,
+    val date: Int,
+    override val sizes: ArrayList<Size>,
+    val width: Int?,
+    var height: Int?,
+) : Photo(sizes)
+
+data class Size(
+    val type: String,
+    val url: String,
+    val width: Int,
+    val height: Int,
+)
+
+data class Video(
+    val id: Int,
+    val ownerId: Int,
+    val title: String?,
+    val description: String?,
+    val duration: Int,
+    val image: ArrayList<Image>,
+    val firstFrame: ArrayList<Frame>,
+    val date: Int,
+    val addingDate: Int,
+    val views: Int,
+    val localViews: Int?,
+    val comments: Int,
+    val player: String?,
+    val platform: String?,
+    val canAdd: Boolean,
+    val accessKey: String,
+    val processing: Int,
+    val isFavorite: Boolean,
+    val canComment: Boolean,
+    val canEdit: Boolean,
+    val canLike: Boolean,
+    val canRepost: Boolean,
+    val canSubscribe: Boolean,
+    val canAddToFaves: Boolean,
+    val canAttachLink: Boolean,
+    val width: Int,
+    val height: Int,
+    val userId: Int,
+    val converting: Boolean,
+    val added: Boolean,
+    val isSubscribed: Boolean,
+    val repeat: Boolean,
+    val type: String,
+    val balance: Int,
+    val liveStatus: String,
+    val live: Boolean,
+    val upcoming: Boolean,
+    val spectators: Int,
+    val likes: Like,
+    val reposts: ExtendRepost,
+)
+
+data class Image(
+    val height: Int,
+    val url: String,
+    val width: Int,
+    val withPadding: Boolean,
+)
+
+data class Frame(
+    val height: Int,
+    val url: String,
+    val width: Int,
+)
+
+data class ExtendRepost(
+    override var count: Int,
+    var wallCount: Int,
+    var mailCount: Int,
+    override var userReposted: Boolean
+
+) : Repost(
+    count,
+    userReposted
+)
+
+data class Doc(
+    val id: Int,
+    val ownerId: Int,
+    var title: String?,
+    val size: Int,
+    val ext: String,
+    val url: String,
+    val date: Int,
+    var type: Int,
+    var preview: Preview
+)
+
+data class Preview(
+    val photo: Photo,
+    val graffiti: Graffiti,
+    val audioMessage: AudioMessage
+)
+
+data class Graffiti(
+    val src: String,
+    val width: Int,
+    val height: Int,
+)
+
+data class AudioMessage(
+    val duration: Int,
+    val waveform: ArrayList<Int>,
+    var linkOgg: String,
+    var linkMp3: String
+)
+
+data class Link(
+    val url: String,
+    var title: String?,
+    val caption: String?,
+    val description: String?,
+    val photo: ExtPhoto?,
+    val product: Product?,
+    var button: Button?,
+    val previewPage: String,
+    val previewUrl: String
+)
+
+data class Product(
+    val price: Price
+)
+
+data class Price(
+    val amount: Int,
+    val currency: Currency,
+    val text: String
+)
+
+data class Currency(
+    val id: Int,
+    val name: String,
+)
+
+data class Button(
+    val title: String,
+    val action: Action,
+)
+
+data class Action(
+    val type: String,
+    val url: String
 )
 
 object WallService {
