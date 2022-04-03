@@ -84,19 +84,13 @@ object WallService {
         for ((index, postForUpdate) in posts.withIndex()) {
             if (postForUpdate.id == post.id) {
                 val updatePost = post.copy(
-                    from_id = post.from_id,
-                    created_by = post.created_by,
                     text = post.text,
-                    replyOwnerId = post.replyOwnerId,
-                    replyPostId = post.replyPostId,
                     friendsOnly = post.friendsOnly,
                     comments = post.comments,
-                    copyright = post.copyright,
                     likes = post.likes,
                     reposts = post.reposts,
                     views = post.views,
                     postType = post.postType,
-                    signerId = post.signerId,
                     canPin = post.canPin,
                     canDelete = post.canDelete,
                     canEdit = post.canEdit,
