@@ -4,7 +4,6 @@ fun main() {
 
 }
 
-
 data class Post(
     val id: Int = uniqueId + 1,
     val owner_id: Int,
@@ -70,9 +69,39 @@ data class Donut(
     var editMode: String,
 )
 
+data class Comment(
+    val id: Int,
+    val postId: Int,
+    val fromId: Int,
+    val date: Int,
+    var text: String,
+    val replyToUser: Int,
+    val replyToComment: Int,
+    var attachments: String,
+    var parentsStack: ArrayList<Int>,
+    var thread: Thread?,
+)
+
+data class Thread(
+    var count: Int,
+    var items: ArrayList<Comment>,
+    var canPost: Boolean,
+    var showReplyButton: Boolean,
+    var groupsCanPost: Boolean
+)
+
+
+class PostNotFoundException(message: String) : java.lang.RuntimeException(message)
+
 object WallService {
 
-    var posts = emptyArray<Post>()
+    private var posts = emptyArray<Post>()
+    private var comments = ArrayList<Comment>()
+
+    fun createComment(comment: Comment) {
+        posts.find { post -> post.id == comment.postId }?.id ?: throw PostNotFoundException("Post not found")
+        comments.add(comment)
+    }
 
     fun add(post: Post): Post {
         posts += post

@@ -1,4 +1,5 @@
 import WallService.add
+import WallService.createComment
 import WallService.update
 import org.junit.After
 import org.junit.Assert
@@ -83,6 +84,32 @@ val post3 = Post(
     postponedId = 1
 )
 
+val comment1 = Comment(
+    id = 1,
+    postId = 1,
+    fromId = 1,
+    date = 578578578,
+    text = "khkhjkhjkhjk",
+    replyToUser = 1,
+    replyToComment = 1,
+    attachments = "khkhk",
+    parentsStack = arrayListOf(1, 2),
+    thread = null,
+)
+
+val comment2 = Comment(
+    id = 2,
+    postId = 101,
+    fromId = 1,
+    date = 578578578,
+    text = "khkhjkhjkhjk",
+    replyToUser = 1,
+    replyToComment = 1,
+    attachments = "khkhk",
+    parentsStack = arrayListOf(1, 2),
+    thread = null,
+)
+
 class WallServiceTest {
 
     @Test
@@ -112,5 +139,15 @@ class WallServiceTest {
     fun update_without_id() {
         val result = update(post3)
         Assert.assertEquals(false, result)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrow_exception() {
+        createComment(comment2)
+    }
+
+    @Test
+    fun shouldThrow_notException() {
+        createComment(comment1)
     }
 }
